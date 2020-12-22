@@ -6,11 +6,11 @@ import (
 )
 
 func Test_ProblemOneFind2020Sum(t *testing.T) {
-	sol := ProblemOneFind2020Sum("./input1.txt")
+	sol := ProblemOneFind2020Sum("./input.txt")
 	fmt.Println(sol)
 }
 
 func Test_ProblemTwoFind2020Sum(t *testing.T) {
-	sol := ProblemTwoFind2020Sum("./input1.txt")
+	sol := ProblemTwoFind2020Sum("./input.txt")
 	fmt.Println(sol)
 }

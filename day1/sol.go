@@ -61,4 +61,3 @@ func readFile(inputFile string) ([]int64, error) {
 	}
 	return res, file.Close()
 }
-
