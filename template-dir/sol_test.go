@@ -15,18 +15,19 @@ func TestOne(t *testing.T) {
 		{
 			name: "basic case",
 			inputFile: "mini-input.txt",
-			expected: 7,
+			expected: 0,
 		},
 		{
 			name: "input",
 			inputFile: util.InputFile,
-			expected: 1665,
+			expected: 0,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			actual := one(tt.inputFile)
-			assert.Equal(t, actual, tt.expected)
+			actual, err := one(tt.inputFile)
+			assert.NoError(t, err)
+			assert.Equal(t, tt.expected, actual)
 		})
 	}
 }
@@ -40,18 +41,19 @@ func TestTwo(t *testing.T) {
 		{
 			name: "basic case",
 			inputFile: "mini-input.txt",
-			expected: 7,
+			expected: 0,
 		},
 		{
 			name: "input",
 			inputFile: util.InputFile,
-			expected: 1665,
+			expected: 0,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			actual := two(tt.inputFile)
-			assert.Equal(t, actual, tt.expected)
+			actual, err := two(tt.inputFile)
+			assert.NoError(t, err)
+			assert.Equal(t, tt.expected, actual)
 		})
 	}
 }

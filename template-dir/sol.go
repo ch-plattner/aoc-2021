@@ -1,9 +1,9 @@
 package day1
 
-func one(inputFile string) int {
-	return 0
+func one(inputFile string) (int, error) {
+	return 0, nil
 }
 
-func two(inputFile string) int {
-	return 0
+func two(inputFile string) (int, error) {
+	return 0, nil
 }
