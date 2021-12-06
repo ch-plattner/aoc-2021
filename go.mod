@@ -1,4 +1,4 @@
-module github.com/ch-plattner/aoc-2020
+module github.com/ch-plattner/aoc-2021
 
 go 1.14
 

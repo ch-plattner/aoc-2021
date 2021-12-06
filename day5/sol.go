@@ -1,9 +1,7 @@
 package day1
 
 import (
-	"fmt"
-	"github.com/ch-plattner/aoc-2020/util"
-	"math"
+	"github.com/ch-plattner/aoc-2021/util"
 	"strconv"
 	"strings"
 )
@@ -32,9 +30,9 @@ type Line struct {
 // x -> (y -> val)
 func one(inputFile string) (int, error) {
 	lines := parseInputFile(inputFile, true)
-
 	lineMap := make(map[int]map[int]int, 0)
 	for _, line := range lines {
+		// ok to move like this because we assume vertical/horizontal lines
 		for x := line.Start.X; x <= line.End.X; x++ {
 			for y := line.Start.Y; y <= line.End.Y; y++ {
 				markSpot(x, y, lineMap)
@@ -46,23 +44,19 @@ func one(inputFile string) (int, error) {
 
 func two(inputFile string) (int, error) {
 	lines := parseInputFile(inputFile, false)
-	fmt.Println(lines)
-
 	lineMap := make(map[int]map[int]int, 0)
 	for _, line := range lines {
-
-		xDiff := abs(line.Start.X - line.End.X)
-		yDiff := abs(line.Start.Y - line.End.Y)
-		if yDiff == 0 {
+		xDiff := util.Abs(line.Start.X - line.End.X)
+		yDiff := util.Abs(line.Start.Y - line.End.Y)
+		if yDiff == 0 { // horizontal line
 			for x := line.Start.X; x <= line.End.X; x++ {
 				markSpot(x, line.Start.Y, lineMap)
 			}
-		} else if xDiff == 0 {
+		} else if xDiff == 0 { // vertical line
 			for y := line.Start.Y; y <= line.End.Y; y++ {
 				markSpot(line.Start.X, y, lineMap)
 			}
-		} else {
-			//fmt.Printf("\n\nLine: %x\n", line)
+		} else { // diagonal line
 			i := 0
 			increment := line.Start.Y < line.End.Y
 			// we will always move left->right in the X field
@@ -76,10 +70,8 @@ func two(inputFile string) (int, error) {
 					i -= 1
 				}
 			}
-			//fmt.Println(lineMap)
 		}
 	}
-	//return 0, nil
 	return countLineMap(lineMap), nil
 }
 
@@ -87,9 +79,7 @@ func markSpot(x, y int, lineMap map[int]map[int]int) {
 	if lineMap[x] == nil {
 		lineMap[x] = make(map[int]int, 0)
 	}
-	//fmt.Printf("X: %d, Y: %d; ", x, y)
 	lineMap[x][y] = lineMap[x][y] + 1
-	//fmt.Println(lineMap)
 }
 
 func countLineMap(lineMap map[int]map[int]int) int {
@@ -102,18 +92,6 @@ func countLineMap(lineMap map[int]map[int]int) int {
 		}
 	}
 	return res
-}
-
-func min(x, y int) int {
-	return int(math.Min(float64(x), float64(y)))
-}
-
-func max(x, y int) int {
-	return int(math.Max(float64(x), float64(y)))
-}
-
-func abs(x int) int {
-	return int(math.Abs(float64(x)))
 }
 
 func parseInputFile(file string, filter bool) []Line {

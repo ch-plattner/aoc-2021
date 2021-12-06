@@ -1,7 +1,7 @@
 package day1
 
 import (
-	"github.com/ch-plattner/aoc-2020/util"
+	"github.com/ch-plattner/aoc-2021/util"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
