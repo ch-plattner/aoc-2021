@@ -1,63 +1,29 @@
 package day1
 
-import (
-	"bufio"
-	"log"
-	"os"
-	"strconv"
-)
-
-func ProblemOneFind2020Sum(inputFile string) int64 {
-	nums, err := readFile(inputFile)
-	if err != nil {
-		log.Fatal(err)
-	}
-	for i := 0; i < len(nums); i++ {
-		for j := i + 1; j < len(nums); j++ {
-			if nums[i] + nums[j] == 2020 {
-				return nums[i]*nums[j]
-			}
+func one(nums []int64) int {
+	numLarger := 0
+	prev := nums[0]
+	for i := 1; i < len(nums); i++ {
+		curr := nums[i]
+		if curr > prev {
+			numLarger += 1
 		}
+		prev = curr
 	}
-	return 0
+	return numLarger
 }
 
-func ProblemTwoFind2020Sum(inputFile string) int64 {
-	nums, err := readFile(inputFile)
-	if err != nil {
-		log.Fatal(err)
-	}
-	for i, _ := range nums {
-		for j := i + 1; j < len(nums); j++ {
-			for k := j + 1; k < len(nums); k++ {
-				if nums[i] + nums[j] + nums[k] == 2020 {
-					return nums[i]*nums[j]*nums[k]
-				}
-			}
+// Consider sums of a three-measurement sliding window. How many sums are larger than the previous sum?
+func two(nums []int64) int {
+	numLarger := 0
+	for i := 0; i + 3 < len(nums); i++ {
+		firstWindow := nums[i] + nums[i+1] + nums[i+2]
+		secondWindow := nums[i+1] + nums[i+2] + nums[i+3]
+		if secondWindow > firstWindow {
+			numLarger += 1
 		}
 	}
-	return 0
+	return numLarger
 }
 
-func readFile(inputFile string) ([]int64, error) {
-	file, err := os.Open(inputFile)
-	if err != nil {
-		log.Fatal(err)
-	}
 
-	var res []int64
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		rawLine := scanner.Text()
-		num, err := strconv.ParseInt(rawLine, 10, 32)
-		if err != nil {
-			log.Fatal(err)
-		}
-		res = append(res, num)
-	}
-
-	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
-	}
-	return res, file.Close()
-}
